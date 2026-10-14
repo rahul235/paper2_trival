@@ -1,0 +1,36 @@
+# Core data
+pandas>=2.1
+numpy>=1.26
+openpyxl>=3.1          # Excel I/O (xlsx read/write)
+python-dotenv>=1.0
+
+# Stage 1 - BERTopic pipeline
+sentence-transformers>=2.7
+bertopic>=0.16
+umap-learn>=0.5
+hdbscan>=0.8.33
+scikit-learn>=1.4
+
+# Stage 2 - BART + SBERT classifiers
+transformers>=4.40
+torch>=2.2
+# tokenizers pinned via transformers
+
+# Stage 2 - Gemini (third voice)
+google-generativeai>=0.7
+
+# Stage 1 - Claude (topic naming) + optional Stage 2 voice
+anthropic>=0.34
+
+# NER (optional country extraction)
+spacy>=3.7
+# After pip install, run: python -m spacy download en_core_web_sm
+
+# Visualization
+matplotlib>=3.8
+seaborn>=0.13
+plotly>=5.20          # BERTopic uses plotly for visualize_documents
+
+# Developer tools
+pytest>=8.0
+ruff>=0.4             # linter + formatter (fast)

@@ -1,0 +1,39 @@
+# TRIVAL project conventions for Cursor AI
+
+## Project overview
+TRIVAL is a two-stage computational literature review framework.
+- Stage 1: BERTopic (BAAI/bge-small-en + UMAP + HDBSCAN) with Claude-based topic naming.
+- Stage 2: Multi-LLM ensemble validation (BART + SBERT + Gemini 2.5 Flash).
+
+## Code conventions
+- Python 3.11+
+- Type hints on all public functions.
+- Docstrings in Google style for all public functions and classes.
+- Prefer pure functions where possible; keep side effects (I/O, API calls) at module boundaries.
+- All hyperparameters and model IDs live in `src/trival/config.py` — never hardcode in business logic.
+- All API keys and file paths come from env vars via `src/trival/auth.py` and config.
+
+## File organization
+- Pipeline modules go in `src/trival/`.
+- Classifier implementations go in `src/trival/classifiers/`.
+- CLI entry points go in `scripts/`.
+- One-off experiments stay in `notebooks/` (not `src/`).
+
+## Testing
+- Tests in `tests/` mirror the `src/trival/` structure.
+- Use pytest fixtures for sample corpora.
+- Mock all external API calls (Anthropic, Gemini) in unit tests; integration tests go behind a `@pytest.mark.integration` marker.
+
+## Dependencies
+- Prefer standard library when possible.
+- Pin major versions in `requirements.txt`.
+- Do not introduce new ML frameworks (keras, lightgbm, etc.) without discussion.
+
+## Model usage
+- Default Claude model for Stage 1: `claude-sonnet-5-5`. Configurable to Opus or Fable via `TRIVAL_CLAUDE_MODEL` env var.
+- Default Gemini model for Stage 2: `gemini-2.5-flash`.
+- Local models (BART, SBERT) load on first use; expect a cold-start download.
+
+## Writing style for commit messages
+Imperative mood: "add X", "fix Y", "refactor Z". Keep subject under 72 chars.
+Multi-line body for the "why" when the diff doesn't make it obvious.
