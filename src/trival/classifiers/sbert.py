@@ -4,7 +4,9 @@ Native output is cosine similarity in [-1, 1]; we shift-rescale to [0, 1]
 in `classify` so all voices use the same scale.
 """
 from __future__ import annotations
+
 from functools import lru_cache
+
 from trival.config import CFG
 
 

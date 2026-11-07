@@ -16,8 +16,9 @@ transformers>=4.40
 torch>=2.2
 # tokenizers pinned via transformers
 
-# Stage 2 - Gemini (third voice)
-google-generativeai>=0.7
+# Stage 2 - Gemini (third voice). google-genai is Google's current SDK;
+# the older google-generativeai package lost support on 2025-11-30.
+google-genai>=2.0
 
 # Stage 1 - Claude (topic naming) + optional Stage 2 voice
 anthropic>=0.34

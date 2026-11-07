@@ -1,31 +1,14 @@
-"""CLI entry: run Stage 1 on a corpus CSV, write multi-sheet Excel.
+"""Thin wrapper around trival.cli.stage1 so this file runs without installing the package.
 
 Usage:
-    python scripts/run_stage1.py \
-        --input data/raw/your_corpus.csv \
-        --out data/output/stage1_results.xlsx
+    python scripts/run_stage1.py --input data/raw/corpus.csv --out data/output/stage1_results.xlsx
 """
-from __future__ import annotations
-import argparse
+import sys
 from pathlib import Path
-from trival.stage1 import run_stage1
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Run TRIVAL Stage 1 pipeline.")
-    parser.add_argument("--input", type=Path, required=True, help="Input corpus CSV (Scopus format).")
-    parser.add_argument("--out", type=Path, required=True, help="Output xlsx path.")
-    parser.add_argument("--auto-tune", action="store_true", help="Run HDBSCAN grid search.")
-    parser.add_argument("--no-claude-labels", action="store_true", help="Skip Claude topic naming.")
-    args = parser.parse_args()
-
-    run_stage1(
-        input_csv=args.input,
-        output_xlsx=args.out,
-        auto_tune=args.auto_tune,
-        label_topics_with_claude=not args.no_claude_labels,
-    )
-
+from trival.cli import stage1  # noqa: E402
 
 if __name__ == "__main__":
-    main()
+    stage1()

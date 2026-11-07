@@ -4,9 +4,10 @@ The grid-search function reproduces the hyperparameter sweep from the original
 TRIVALStage1.ipynb (naive triple-loop maximizing DBCV score).
 """
 from __future__ import annotations
-import numpy as np
+
 from dataclasses import dataclass
-from trival.config import CFG
+
+import numpy as np
 
 
 @dataclass

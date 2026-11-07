@@ -4,6 +4,7 @@ Thin wrappers around `topic_model.visualize_documents` and friends. The
 output is a plotly Figure; render in a notebook or save to HTML.
 """
 from __future__ import annotations
+
 import numpy as np
 
 

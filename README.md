@@ -25,11 +25,13 @@ paper2code/
 │   ├── stage1.py            # orchestrator
 │   ├── stage2.py            # orchestrator (ensemble + majority vote)
 │   ├── ner.py               # spaCy country extraction
-│   └── visualize.py         # BERTopic plots
-├── scripts/                 # CLI entry points
+│   ├── visualize.py         # BERTopic plots
+│   └── cli.py               # command-line entry points
+├── scripts/                 # thin wrappers around trival.cli (run without installing)
 │   ├── run_stage1.py
 │   ├── run_stage2_themes.py # paper's full-corpus theme validation
-│   └── run_stage2_methods.py # method classification (qual/quant/mixed)
+│   ├── run_stage2_methods.py # method classification (qual/quant/mixed)
+│   └── extract_countries.py
 ├── notebooks/
 │   └── archive/             # original Colab notebooks for reference
 ├── data/
@@ -55,7 +57,15 @@ python -m spacy download en_core_web_sm
 # Configure API keys
 cp .env.example .env
 # Edit .env and add ANTHROPIC_API_KEY, GEMINI_API_KEY
+# Optional: TRIVAL_CLAUDE_MODEL=claude-opus-5-5 switches Stage 1 naming from Sonnet to Opus
 ```
+
+## Opening in Cursor
+
+1. Open the `paper2code` folder. Cursor will offer the recommended extensions from
+   `.vscode/extensions.json` (Python, Cursor Pyright, Ruff, Jupyter); install them.
+2. Select the interpreter: Command Palette, "Python: Select Interpreter", pick `.venv`.
+3. Project rules for Cursor's AI are in `.cursorrules`.
 
 ## Running the pipeline
 
@@ -73,6 +83,9 @@ trival-stage2-themes \
 trival-stage2-methods \
     --input data/raw/your_corpus.csv \
     --out data/output/stage2_method_classification.xlsx
+
+# Optional: country mentions via spaCy NER
+trival-countries --input data/raw/your_corpus.csv --out data/output/abstracts_with_countries.csv
 ```
 
 ## Reference: original Colab notebooks
@@ -85,7 +98,7 @@ The three notebooks this package was refactored from are preserved in `notebooks
 
 The refactored code reproduces the pipeline with these differences:
 - Topic naming moved from local LLaMA2-13B (quantized) to Claude API (default Sonnet)
-- Gemini 2.5 Flash added as a third voice in the Stage 2 ensemble
+- Gemini 2.5 Flash added as a third voice in the Stage 2 ensemble (via the `google-genai` SDK)
 - All I/O goes through typed functions in `trival.io`
 - Hyperparameters and model IDs centralized in `trival.config`
 

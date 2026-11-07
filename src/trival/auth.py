@@ -4,14 +4,10 @@ Usage:
     from trival.auth import get_anthropic_key, get_gemini_key
 """
 from __future__ import annotations
+
 import os
-from pathlib import Path
-from dotenv import load_dotenv
 
-
-# Load .env from project root on module import.
-_PROJECT_ROOT = Path(__file__).resolve().parents[2]
-load_dotenv(_PROJECT_ROOT / ".env", override=False)
+import trival.config  # noqa: F401  (importing config loads .env from the project root)
 
 
 class MissingAPIKeyError(RuntimeError):

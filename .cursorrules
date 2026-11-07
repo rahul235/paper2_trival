@@ -16,7 +16,7 @@ TRIVAL is a two-stage computational literature review framework.
 ## File organization
 - Pipeline modules go in `src/trival/`.
 - Classifier implementations go in `src/trival/classifiers/`.
-- CLI entry points go in `scripts/`.
+- CLI logic lives in `src/trival/cli.py`; `scripts/` holds thin wrappers around it.
 - One-off experiments stay in `notebooks/` (not `src/`).
 
 ## Testing
@@ -31,7 +31,8 @@ TRIVAL is a two-stage computational literature review framework.
 
 ## Model usage
 - Default Claude model for Stage 1: `claude-sonnet-5-5`. Configurable to Opus or Fable via `TRIVAL_CLAUDE_MODEL` env var.
-- Default Gemini model for Stage 2: `gemini-2.5-flash`.
+- Default Gemini model for Stage 2: `gemini-2.5-flash`, called through the `google-genai` SDK
+  (not the retired `google-generativeai` package).
 - Local models (BART, SBERT) load on first use; expect a cold-start download.
 
 ## Writing style for commit messages

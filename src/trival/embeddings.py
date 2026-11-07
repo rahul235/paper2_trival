@@ -6,9 +6,10 @@ Secondary: deepset/sentence_bert (Stage 2 cosine-similarity voice).
 Both load lazily on first use; expect a one-time ~100 MB download per model.
 """
 from __future__ import annotations
+
 from functools import lru_cache
+
 import numpy as np
-from trival.config import CFG
 
 
 @lru_cache(maxsize=2)

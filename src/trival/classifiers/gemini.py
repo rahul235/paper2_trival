@@ -6,17 +6,21 @@ label', with the model returning a JSON object. Scores are divided by 100
 to normalize to [0, 1].
 """
 from __future__ import annotations
+
 from functools import lru_cache
-from trival.config import CFG
+
 from trival.auth import get_gemini_key
 
 
 @lru_cache(maxsize=1)
 def _get_client():
-    """Lazy-load the Gemini client (singleton)."""
-    import google.generativeai as genai
-    genai.configure(api_key=get_gemini_key())
-    return genai.GenerativeModel(CFG.stage2.gemini_model)
+    """Lazy-load the Gemini client (singleton), using the google-genai SDK.
+
+    Calls then pass the model id each time:
+        _get_client().models.generate_content(model=CFG.stage2.gemini_model, contents=...)
+    """
+    from google import genai
+    return genai.Client(api_key=get_gemini_key())
 
 
 def _build_prompt(abstract: str, candidate_labels: list[str]) -> str:

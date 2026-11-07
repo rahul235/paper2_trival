@@ -4,8 +4,10 @@ Entry point for the full Stage 1 pipeline. Uses BERTopic's modular architecture
 internally with the components wired via trival.* modules.
 """
 from __future__ import annotations
-from pathlib import Path
+
 from dataclasses import dataclass
+from pathlib import Path
+
 import pandas as pd
 
 

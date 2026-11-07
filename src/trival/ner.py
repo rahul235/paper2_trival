@@ -6,6 +6,7 @@ utility - not part of the Stage 2 ensemble.
 Setup: `python -m spacy download en_core_web_sm` once.
 """
 from __future__ import annotations
+
 from functools import lru_cache
 
 

@@ -4,9 +4,10 @@ Input CSVs follow the Scopus export format with columns `Title` and `Abstract`
 (or `Article Title` and `Abstract` for the 996 variant); both are accepted.
 """
 from __future__ import annotations
-from pathlib import Path
-import pandas as pd
 
+from pathlib import Path
+
+import pandas as pd
 
 NA_VALUES = ["[No abstract available]", ""]
 TITLE_COLUMNS = ("Title", "Article Title")

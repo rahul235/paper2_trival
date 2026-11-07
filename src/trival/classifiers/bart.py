@@ -4,7 +4,9 @@ Uses the transformers `zero-shot-classification` pipeline. Native output
 is already in [0, 1] per label, so no normalization is needed.
 """
 from __future__ import annotations
+
 from functools import lru_cache
+
 from trival.config import CFG
 
 

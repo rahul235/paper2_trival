@@ -10,10 +10,10 @@ The prompt structure follows the original few-shot pattern:
           target documents + keywords -> please label
 """
 from __future__ import annotations
-from functools import lru_cache
-from trival.config import CFG
-from trival.auth import get_anthropic_key
 
+from functools import lru_cache
+
+from trival.auth import get_anthropic_key
 
 EXAMPLE_DOCS: list[str] = []   # TODO: carry over the yoga/CAM example from the original notebook
 EXAMPLE_KEYWORDS: str = ""     # TODO

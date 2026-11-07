@@ -4,10 +4,12 @@ Every value here can be overridden by an environment variable prefixed `TRIVAL_`
 All business-logic modules import from here instead of hardcoding values.
 """
 from __future__ import annotations
+
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from dotenv import load_dotenv
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -15,6 +17,10 @@ from pathlib import Path
 PROJECT_ROOT: Path = Path(__file__).resolve().parents[2]
 DATA_RAW_DIR: Path = PROJECT_ROOT / "data" / "raw"
 DATA_OUTPUT_DIR: Path = PROJECT_ROOT / "data" / "output"
+
+# Load .env before any setting below reads the environment, so TRIVAL_* overrides
+# placed in .env take effect (e.g. TRIVAL_CLAUDE_MODEL=claude-opus-5-5).
+load_dotenv(PROJECT_ROOT / ".env", override=False)
 
 
 # ---------------------------------------------------------------------------
@@ -46,7 +52,8 @@ class Stage1Config:
     # BERTopic
     bertopic_top_n_words: int = 10
 
-    # Claude for topic naming
+    # Claude for topic naming. Default Sonnet; to switch, set in .env:
+    #   TRIVAL_CLAUDE_MODEL=claude-opus-5-5   (or claude-fable-5-1)
     claude_model: str = os.getenv("TRIVAL_CLAUDE_MODEL", "claude-sonnet-5-5")
     claude_max_tokens: int = int(os.getenv("TRIVAL_CLAUDE_MAX_TOKENS", "500"))
     claude_temperature: float = float(os.getenv("TRIVAL_CLAUDE_TEMPERATURE", "0.1"))

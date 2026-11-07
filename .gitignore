@@ -21,8 +21,9 @@ ENV/
 .env
 .env.local
 
-# IDE
-.vscode/
+# IDE (keep the shared extension recommendations)
+.vscode/*
+!.vscode/extensions.json
 .idea/
 *.swp
 .DS_Store

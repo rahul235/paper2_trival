@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,22 +8,24 @@ version = "0.1.0"
 description = "TRIVAL: Thematic Review with Inbuilt Validation. A two-stage decision support framework for computational literature review."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = "MIT"
 authors = [
     { name = "Rahul", email = "rahul235@gmail.com" }
 ]
 
 [project.scripts]
-trival-stage1 = "scripts.run_stage1:main"
-trival-stage2-themes = "scripts.run_stage2_themes:main"
-trival-stage2-methods = "scripts.run_stage2_methods:main"
+trival-stage1 = "trival.cli:stage1"
+trival-stage2-themes = "trival.cli:stage2_themes"
+trival-stage2-methods = "trival.cli:stage2_methods"
+trival-countries = "trival.cli:countries"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py310"
+extend-exclude = ["notebooks/archive"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP"]
@@ -32,3 +34,6 @@ ignore = ["E501"]  # line length handled by formatter
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = [
+    "integration: downloads models or calls external APIs (run with: pytest -m integration)",
+]

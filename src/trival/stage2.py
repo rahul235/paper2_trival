@@ -12,8 +12,10 @@ Aggregation: majority vote on argmax(normalized_score); ties broken by
 weighted score sum.
 """
 from __future__ import annotations
-from pathlib import Path
+
 from dataclasses import dataclass
+from pathlib import Path
+
 import pandas as pd
 
 
